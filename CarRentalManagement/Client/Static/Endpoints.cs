@@ -16,6 +16,7 @@ namespace CarRentalManagement.Client.Static
         public static string BookingsEndpoint = $"{Prefix}/bookings";
         public static string CustomersEndpoint = $"{Prefix}/customers";
         public static string ColoursEndpoint = $"{Prefix}/colours";
+        public static string BranchesEndpoint = $"{Prefix}/branches";
 
     }
 }
