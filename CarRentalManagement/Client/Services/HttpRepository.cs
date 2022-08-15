@@ -53,6 +53,12 @@ namespace CarRentalManagement.Client.Services
             return await _client.GetFromJsonAsync<List<T>>($"{url}");
         }
 
+        public async Task<List<T>> Search(string url, string country)
+        {
+            _interceptor.MonitorEvent();
+            return await _client.GetFromJsonAsync<List<T>>($"{url}/{country}");
+        }
+
         public async Task Update(string url, T obj, int id)
         {
             _interceptor.MonitorEvent();

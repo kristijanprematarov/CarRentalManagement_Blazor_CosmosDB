@@ -41,6 +41,29 @@ namespace CarRentalManagement.Server.Controllers
             return Ok(branches);
         }
 
+        // search: api/<BranchesController>
+        [HttpGet("search/{country}")]
+        public async Task<IActionResult> SearchByCountry(string country)
+        {
+            var branches = new List<Branch>();
+
+            var requestOptions = new QueryRequestOptions
+            {
+                PartitionKey = new PartitionKey(country)
+            };
+
+            var branchDocuments = _documentContainer
+                .GetItemQueryIterator<Branch>(requestOptions: requestOptions);
+
+            while (branchDocuments.HasMoreResults)
+            {
+                var branchesFromCosmos = await branchDocuments.ReadNextAsync();
+                branches.AddRange(branchesFromCosmos.Resource);
+            }
+
+            return Ok(branches);
+        }
+
         // GET api/<BranchesController>/5
         [HttpGet("{id}")]
         public string Get(int id)

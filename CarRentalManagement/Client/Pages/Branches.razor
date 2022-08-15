@@ -34,7 +34,20 @@
     </button>
 </EditForm>
 
-<hr />
+<br />
+<br />
+
+<EditForm Model="branchSearch" OnValidSubmit="Search">
+    <InputText @bind-Value="@branchSearch.Country" class="form-control" />
+
+    <button class="btn btn-primary" type="submit" @onclick="Search">
+        <span class="oi oi-pencil"></span>
+        Search by country
+    </button>
+</EditForm>
+
+<br />
+<br />
 
 @if (BranchLocations == null)
 {
@@ -65,12 +78,18 @@ else
 
 @code {
     private Branch branch = new Branch();
+    private Branch branchSearch = new Branch();
     private List<Branch> BranchLocations = new List<Branch>();
     private bool isSuccess;
 
     protected async override Task OnInitializedAsync()
     {
         BranchLocations = await _client.GetAll(Endpoints.BranchesEndpoint);
+    }
+
+    protected async Task Search()
+    {
+        BranchLocations = await _client.Search(Endpoints.BranchesSearchEndpoint, branchSearch.Country);
     }
 
     private async Task HandleCreate()

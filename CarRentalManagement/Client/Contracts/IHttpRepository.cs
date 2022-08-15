@@ -10,6 +10,7 @@ namespace CarRentalManagement.Client.Contracts
         Task<T> Get(string url, int id);
         Task<T> GetDetails(string url, int id);
         Task<List<T>> GetAll(string url);
+        Task<List<T>> Search(string url, string country);
         Task Create(string url, T obj);
         Task Update(string url, T obj, int id);
         Task Delete(string url, int id);
